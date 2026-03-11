@@ -38,7 +38,7 @@ We recommend spending no more than 2 hours on this assignment. We are more inter
 ## Notes
 - I used AI-coding assistant to verify and help me code. I found the bugs myself through installation, running, and testing product.
 - I also did this OA a few months ago for a different role, but not sure if it's exactly the as before, so I redid everything to make sure I got the latest version.
-- The updated code is from another branch `product-and-search-dev-kyle` that I made and created a merge pull request to my main. I approved it using squash-and-merge since it's just me working on the project.
+- The updated code is from another branch `product-and-search-dev-kyle` that I made and created a merge pull request to my main. I approved it using squash-and-merge since it's just me working on the project. Lastly, I deleted the dev branch after successfully merging.
 
 ## Bugs & Fixes
 
