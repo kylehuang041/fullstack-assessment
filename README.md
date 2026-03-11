@@ -35,6 +35,8 @@ We recommend spending no more than 2 hours on this assignment. We are more inter
 - Provide your Stackline contact with a link to a git repository where you have committed your changes
 
 ---
+## Notes
+I used AI-coding assistant to verify and help me code. I found the bugs myself through installation, running, and testing product.
 
 ## Bugs & Fixes
 
