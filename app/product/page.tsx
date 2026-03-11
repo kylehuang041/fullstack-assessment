@@ -69,7 +69,7 @@ export default function ProductPage() {
             <Card className="overflow-hidden">
               <CardContent className="p-0">
                 <div className="relative h-96 w-full bg-muted">
-                  {product.imageUrls[selectedImage] && (
+                  {product.imageUrls?.[selectedImage] && (
                     <Image
                       src={product.imageUrls[selectedImage]}
                       alt={product.title}
@@ -77,13 +77,14 @@ export default function ProductPage() {
                       className="object-contain p-8"
                       sizes="(max-width: 1024px) 100vw, 50vw"
                       priority
+                      unoptimized
                     />
                   )}
                 </div>
               </CardContent>
             </Card>
 
-            {product.imageUrls.length > 1 && (
+            {product.imageUrls && product.imageUrls.length > 1 && (
               <div className="grid grid-cols-4 gap-2">
                 {product.imageUrls.map((url, idx) => (
                   <button
@@ -99,6 +100,7 @@ export default function ProductPage() {
                       fill
                       className="object-contain p-2"
                       sizes="100px"
+                      unoptimized
                     />
                   </button>
                 ))}
@@ -109,22 +111,49 @@ export default function ProductPage() {
           <div className="space-y-6">
             <div>
               <div className="flex gap-2 mb-2">
-                <Badge variant="secondary">{product.categoryName}</Badge>
-                <Badge variant="outline">{product.subCategoryName}</Badge>
+                {product.categoryName && (
+                  <Link
+                    href={`/?category=${encodeURIComponent(product.categoryName)}`}
+                  >
+                    <Badge
+                      variant="secondary"
+                      className="cursor-pointer hover:opacity-80 transition-opacity"
+                    >
+                      {product.categoryName}
+                    </Badge>
+                  </Link>
+                )}
+                {product.subCategoryName && (
+                  <Link
+                    href={`/?category=${encodeURIComponent(product.categoryName ?? '')}&subCategory=${encodeURIComponent(product.subCategoryName)}`}
+                  >
+                    <Badge
+                      variant="outline"
+                      className="cursor-pointer hover:opacity-80 transition-opacity"
+                    >
+                      {product.subCategoryName}
+                    </Badge>
+                  </Link>
+                )}
               </div>
               <h1 className="text-3xl font-bold mb-2">{product.title}</h1>
-              <p className="text-sm text-muted-foreground">SKU: {product.retailerSku}</p>
+              {product.retailerSku && (
+                <p className="text-sm text-muted-foreground">SKU: {product.retailerSku}</p>
+              )}
             </div>
 
-            {product.featureBullets.length > 0 && (
+            {product.featureBullets && product.featureBullets.length > 0 && (
               <Card>
                 <CardContent className="pt-6">
-                  <h2 className="text-lg font-semibold mb-3">Features</h2>
-                  <ul className="space-y-2">
+                  <h2 className="text-lg font-semibold mb-4">Features</h2>
+                  <ul className="space-y-3">
                     {product.featureBullets.map((feature, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <span className="mr-2 mt-1 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
-                        <span className="text-sm">{feature}</span>
+                      <li
+                        key={idx}
+                        className="flex items-start gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted/70 transition-colors border border-transparent hover:border-border"
+                      >
+                        <span className="mt-2 shrink-0 w-1.5 h-1.5 rounded-full bg-foreground" />
+                        <span className="text-sm leading-relaxed">{feature}</span>
                       </li>
                     ))}
                   </ul>
