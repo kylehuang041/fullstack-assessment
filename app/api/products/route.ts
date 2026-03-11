@@ -4,12 +4,17 @@ import { productService } from '@/lib/products';
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
 
+  const rawLimit = searchParams.get('limit');
+  const rawOffset = searchParams.get('offset');
+  const limit = Math.min(Math.max(parseInt(rawLimit || '20', 10) || 20, 1), 100);
+  const offset = Math.max(parseInt(rawOffset || '0', 10) || 0, 0);
+
   const filters = {
     category: searchParams.get('category') || undefined,
     subCategory: searchParams.get('subCategory') || undefined,
     search: searchParams.get('search') || undefined,
-    limit: searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : 20,
-    offset: searchParams.get('offset') ? parseInt(searchParams.get('offset')!) : 0,
+    limit,
+    offset,
   };
 
   const products = productService.getAll(filters);
